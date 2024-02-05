@@ -1,4 +1,7 @@
-import { React, useState, useEffect } from "react";
+// MovieList.jsx
+
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -6,7 +9,9 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import "./MovieList.css";
 
+
 function MovieList() {
+  const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -20,10 +25,13 @@ function MovieList() {
     movie.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleCardClick = (movieId) => {
+    navigate(`/recommendation/${movieId}`);
+  };
 
   return (
     <div className="main">
-      <h1>Search A Movie</h1>
+      <h1 className="heading-1">Search A Movie</h1>
       <div className="search">
         <TextField
           id="outlined-basic"
@@ -34,12 +42,20 @@ function MovieList() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <p>You searched for...</p>
-      <Grid container spacing={3} style={{margin:'10px', padding:'2px'}}>
+      <Grid container spacing={3} style={{ margin: "10px", padding: "2px" }}>
         {search &&
           filteredMovies.map((movie) => (
-            <Grid item xs={15} sm={10} md={4} lg={3} key={movie.movieId}>
-              <Card onClick={() => alert(movie.movieId)} style={{height:'150px', width:'250px', padding:'5px'}}>
+            <Grid
+              item
+              xs={10}
+              sm={10}
+              md={4}
+              lg={3}
+              key={movie.movieId}
+              onClick={() => handleCardClick(movie.movieId)}
+              style={{ cursor: "pointer" }}
+            >
+              <Card style={{ height: "150px", width: "250px", padding: "2px", margin: "10px" }}>
                 <CardContent>
                   <Typography variant="h6">{movie.title}</Typography>
                 </CardContent>
@@ -52,4 +68,3 @@ function MovieList() {
 }
 
 export default MovieList;
-

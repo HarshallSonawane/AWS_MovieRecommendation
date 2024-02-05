@@ -1,3 +1,7 @@
+body{
+    background-color: #d1bdbd;
+  }
+  
 .main {
     display: flex;
     height: 100vh;
@@ -9,9 +13,11 @@
   }
   
   h1 {
-    margin: 10px;
+   
+    margin: 20px;
     font-size: 40px;
     color: rgb(1, 1, 59);
+    font-style: italic;
   }
   
   .search {
